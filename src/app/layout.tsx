@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   icons: [
     {
       rel: "icon",
+      href: "/tobams-icon.png",
       url: "/tobams-icon.png",
     },
   ],
