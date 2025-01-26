@@ -27,14 +27,14 @@ const BlogDetails = ({ params }: { params: Promise<{ slug: string }> }) => {
   } = useQuery<IBlogPostDetails>({
     queryKey: ["blogDetails"],
     queryFn: async () => {
-      const response = await axios.get(
-        `https://dev.to/api/articles/${blogId}`
-        // {
-        //   headers: {
-        //     "Cache-Control": "no-store",
-        //   },
-        // }
-      );
+      const blogUrl = process.env.NEXT_PUBLIC_BLOG_URL;
+      if (!blogUrl) {
+        console.error(
+          "Environment variable NEXT_PUBLIC_BLOG_URL is not defined."
+        );
+        throw new Error("BLOG_URL is not defined");
+      }
+      const response = await axios.get(`${blogUrl}/${blogId}`);
       // console.log(response.data);
       return response.data;
     },
@@ -44,8 +44,15 @@ const BlogDetails = ({ params }: { params: Promise<{ slug: string }> }) => {
   const { data: allBlogs } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const response = await axios.get("https://dev.to/api/articles");
-      // console.log(response.data);
+      const blogUrl = process.env.NEXT_PUBLIC_BLOG_URL;
+      if (!blogUrl) {
+        console.error(
+          "Environment variable NEXT_PUBLIC_BLOG_URL is not defined."
+        );
+        throw new Error("BLOG_URL is not defined");
+      }
+      const response = await axios.get(blogUrl);
+      console.log(response.data);
       return response.data;
     },
   });

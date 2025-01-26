@@ -29,7 +29,12 @@ const MainBlog = () => {
   } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const response = await axios.get("https://dev.to/api/articles");
+    const blogUrl = process.env.NEXT_PUBLIC_BLOG_URL;
+    if (!blogUrl) {
+        console.error("Environment variable NEXT_PUBLIC_BLOG_URL is not defined.");
+        throw new Error("BLOG_URL is not defined");
+      }
+      const response = await axios.get(blogUrl);
       console.log(response.data);
       return response.data;
     },
@@ -55,6 +60,10 @@ const MainBlog = () => {
     }
     return true;
   });
+
+  if (isError) {
+    return <div className="mt-24">Error loading blogs</div>;
+  }
 
   return (
     <div className="bg-bgPurple/10 w-full h-full p-6">
