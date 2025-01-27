@@ -52,7 +52,7 @@ const BlogDetails = ({ params }: { params: Promise<{ slug: string }> }) => {
         throw new Error("BLOG_URL is not defined");
       }
       const response = await axios.get(blogUrl);
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     },
   });

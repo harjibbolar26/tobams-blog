@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { navItems } from "@/app/utils/constants";
+import Link from "next/link";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,13 +29,15 @@ const Navbar = () => {
       <header className="fixed top-0 left-0 right-0 z-50 w-full border-b bg-white">
         <div className="flex justify-between items-center md:px-10 px-3 my-2 w-full h-10">
           <div className="relative md:h-[60px] h-[42px] md:w-[165px] w-[123px]">
-            <Image
-              src={"/tobams-logo.png"}
-              alt="logo"
-              fill
-              //   width={165}
-              //   height={60}
-            />
+            <Link href={"/"}>
+              <Image
+                src={"/tobams-logo.png"}
+                alt="logo"
+                fill
+                //   width={165}
+                //   height={60}
+              />
+            </Link>
           </div>
           {/* <div className="relative w">
           </div> */}
@@ -54,12 +57,12 @@ const Navbar = () => {
           </div>
           <div className="block md:hidden my-auto">
             <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger data-cy="dropdown-trigger" className="cursor-pointer">
                 <div className="p-1 h-fit w-fit cursor-pointer bg-primary text-white rounded-lg">
                   {menuOpen ? <X /> : <Menu />}
                 </div>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent data-cy="dropdown-menu">
                 {navItems.map((item, index) => (
                   <DropdownMenuItem key={index} className="cursor-pointer">
                     {item}

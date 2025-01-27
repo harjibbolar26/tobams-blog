@@ -25,7 +25,7 @@ const MainBlog = () => {
   const {
     data: blogs,
     isLoading,
-    isError,
+    error,
   } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
@@ -61,7 +61,7 @@ const MainBlog = () => {
     return true;
   });
 
-  if (isError) {
+  if (error) {
     return <div className="mt-24">Error loading blogs</div>;
   }
 
@@ -100,10 +100,10 @@ const MainBlog = () => {
             {isLoading
               ? Array.from({ length: 6 }).map((_, index) => (
                   <div
-                    className="border-[2px] border-secondary-1 rounded-xl p-4 w-full relative space-y-3"
+                    className="border-[2px] border-secondary-1 rounded-xl p-4 w-full relative space-y-3 skeleton"
                     key={index}
                   >
-                    <Skeleton className="w-full h-64 bg-[#ddd]" />
+                    <Skeleton className="w-full h-64 bg-[#ddd] skeleton" />
                     <Skeleton className="w-full  h-8 bg-[#ddd]" />
                     <Skeleton className="w-full  h-4 bg-[#ddd]" />
                   </div>
